@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Desejos de Natal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: url('https://png.pngtree.com/thumb_back/fh260/background/20201105/pngtree-merry-christmas-wood-plank-texture-background-image_457776.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #fff;
+            padding: 0 10px;
+            background-attachment: fixed;
+            overflow: hidden;
+        }
+
+        .container {
+            background-color: rgba(173, 216, 230, 0.9);
+            border-radius: 15px;
+            padding: 40px;
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .container:hover {
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+            transform: scale(1.05);
+        }
+
+        h1 {
+            color: #e74c3c;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        input {
+            width: 70%;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            margin-right: 10px;
+            outline: none;
+            transition: border-color 0.3s ease;
+            background-color: #fff;
+            color: #333;
+        }
+
+        input:focus {
+            border-color: #e74c3c;
+        }
+
+        button {
+            padding: 12px 24px;
+            font-size: 16px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #c0392b;
+            transform: translateY(-3px);
+        }
+
+        button:active {
+            transform: translateY(1px);
+        }
+
+        ul {
+            list-style-type: none;
+            margin-top: 30px;
+            padding-left: 0;
+            height: auto;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        li {
+            background-color: #ecf0f1;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.2em;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        li:hover {
+            background-color: #d5dbdb;
+            transform: translateX(5px);
+        }
+
+        li span {
+            flex-grow: 1;
+        }
+
+        .remove-btn {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .remove-btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-3px);
+        }
+
+        .remove-btn:active {
+            transform: translateY(1px);
+        }
+
+        @media (max-width: 600px) {
+            input {
+                width: 60%;
+            }
+
+            button {
+                padding: 10px 18px;
+            }
+
+            li {
+                font-size: 1em;
+            }
+
+            .container {
+                padding: 25px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+        }
+
+        .wish-added {
+            background-color: #2c3e50;
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Minha Lista de Desejos de Natal</h1>
+
+        <div>
+            <input type="text" id="wishInput" placeholder="Digite seu desejo de Natal..." aria-label="Digite seu desejo de Natal...">
+            <button onclick="addWish()" aria-label="Adicionar desejo">Adicionar Desejo</button>
+        </div>
+
+        <ul id="wishList"></ul>
+    </div>
+
+    <script>
+        function addWish() {
+            const wishInput = document.getElementById("wishInput");
+            const wishList = document.getElementById("wishList");
+            const wishText = wishInput.value.trim();
+
+            if (wishText !== "") {
+                const li = document.createElement("li");
+                const span = document.createElement("span");
+                span.textContent = wishText;
+
+                const removeButton = document.createElement("button");
+                removeButton.textContent = "Remover";
+                removeButton.classList.add("remove-btn");
+                removeButton.onclick = function () {
+                    li.remove();
+                };
+
+                li.appendChild(span);
+                li.appendChild(removeButton);
+                li.classList.add('wish-added');
+
+                wishList.appendChild(li);
+                wishInput.value = "";
+                wishInput.focus();
+            } else {
+                alert("Por favor, digite um desejo antes de adicionar!");
+            }
+        }
+
+        document.getElementById("wishInput").addEventListener("keypress", function (e) {
+            if (e.key === "Enter") {
+                addWish();
+            }
+        });
+    </script>
+
+</body>
+</html>
